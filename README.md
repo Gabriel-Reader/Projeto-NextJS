@@ -29,17 +29,27 @@ Conforme os requisitos do trabalho, foram implementadas duas páginas com estrat
 
 ## 3. Análise Comparativa Lighthouse (Antes vs. Depois)
 
-Abaixo apresentamos a comparação das métricas obtidas no Google Lighthouse.
+Abaixo apresentamos a comparação das métricas obtidas no Google Lighthouse para cada uma das páginas principais.
 
-| Métrica | Projeto Original (HTML/JS) | Projeto Novo (Next.js na Vercel) | Variação |
+### Tabela 1: Página de Login (Home)
+*Estratégia: HTML Puro vs. Next.js (SSG)*
+
+| Métrica | Versão Original (HTML) | Versão Next.js (SSG) | Variação |
 | :--- | :---: | :---: | :---: |
 | **Performance** | [00] | [00] | +/- 0% |
 | **Acessibilidade** | [00] | [00] | +/- 0% |
 | **Boas Práticas** | [00] | [00] | +/- 0% |
 | **SEO** | [00] | [00] | +/- 0% |
 
-### Análise dos Resultados:
-(...)
+### Tabela 2: Página do Portal (Central de Dúvidas)
+*Estratégia: HTML Puro vs. Next.js (CSR)*
+
+| Métrica | Versão Original (HTML) | Versão Next.js (CSR) | Variação |
+| :--- | :---: | :---: | :---: |
+| **Performance** | [00] | [00] | +/- 0% |
+| **Acessibilidade** | [00] | [00] | +/- 0% |
+| **Boas Práticas** | [00] | [00] | +/- 0% |
+| **SEO** | [00] | [00] | +/- 0% |
 
 ---
 
