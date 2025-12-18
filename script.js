@@ -1,14 +1,11 @@
 // ======================================================
-// 1. FUNÇÕES GLOBAIS DE AUTENTICAÇÃO
-// (Essenciais para o portal funcionar)
+// 1. FUNÇÕES GLOBAIS
 // ======================================================
 
 function verificarAuth() {
-    // Se não estivermos na página de login (index.html)
-    if (!document.getElementById('loginForm') && !window.location.href.includes('index.html')) {
+    if (!document.getElementById('loginFormulario') && !window.location.href.includes('index.html')) {
         const usuario = localStorage.getItem('usuarioLogado');
         if (!usuario) {
-            // Se não tiver usuário logado, manda de volta para o login
             window.location.href = 'index.html'; 
         }
     }
@@ -29,14 +26,13 @@ function logout() {
 }
 
 // ======================================================
-// LÓGICA DE LOGIN (SÓ RODA NO INDEX.HTML)
+// LÓGICA DE LOGIN (Para index.html)
 // ======================================================
 
 const USUARIO_CORRETO = "admin";
 const SENHA_CORRETA = "Inter";
 
-// Tenta pegar o formulário
-const loginForm = document.getElementById("loginForm") || document.getElementById("loginFormulario");
+const loginForm = document.getElementById("loginFormulario");
 
 if (loginForm) {
     loginForm.addEventListener("submit", function (event) {
@@ -45,42 +41,16 @@ if (loginForm) {
         const usuarioInput = document.getElementById("usuario");
         const senhaInput = document.getElementById("senha");
         
-        // Elementos de mensagem de erro (opcionais)
-        const ulMensagens = document.querySelector(".ul-flashed-messages");
-        const liMensagem = document.querySelector(".mensagem-validacao");
-
-        // Limpa mensagens anteriores
-        if(liMensagem) liMensagem.textContent = "";
-        if(ulMensagens) ulMensagens.style.display = "none";
-
         const usuarioDigitado = usuarioInput.value;
         const senhaDigitada = senhaInput.value;
 
-        // VERIFICAÇÃO ESTRITA (Só entra se for igual às variáveis)
         if (usuarioDigitado === USUARIO_CORRETO && senhaDigitada === SENHA_CORRETA) {
-            
-            // Login com sucesso
             localStorage.setItem('usuarioLogado', usuarioDigitado); 
             window.location.href = "portal.html";
-
         } else {
-            // Login falhou
-            const mensagemErro = "Usuário ou senha incorretos.";
-            
-            if (liMensagem && ulMensagens) {
-                // Se tiver o HTML de erro, mostra lá
-                liMensagem.textContent = mensagemErro;
-                ulMensagens.style.display = "block";
-            } else {
-                // Se não, mostra um alerta padrão
-                alert(mensagemErro); 
-            }
-            
-            // Limpa o campo de senha e foca nele novamente
-            if(senhaInput) {
-                senhaInput.value = "";
-                senhaInput.focus();
-            }
+            alert("Usuário ou senha incorretos."); 
+            senhaInput.value = "";
+            senhaInput.focus();
         }
     });
 }
@@ -97,102 +67,79 @@ if (darkModeBtn) {
 }
 
 // ======================================================
-// LÓGICA DO PORTAL (SÓ RODA NO PORTAL.HTML)
+// LÓGICA DO PORTAL DE MONITORIA (Para portal.html)
 // ======================================================
 
-const formMorador = document.getElementById('formMorador');
+const formMonitoria = document.getElementById('formMonitoria');
 
-if (formMorador) {
-    formMorador.addEventListener('submit', function(e) {
+if (formMonitoria) {
+    formMonitoria.addEventListener('submit', function(e) {
         e.preventDefault();
 
         const imagemInput = document.getElementById('m_imagem');
-        const file = imagemInput.files[0]; // Pega o primeiro arquivo selecionado
+        const file = imagemInput.files[0];
 
         if (file) {
-            // Se tem arquivo, precisamos ler ele antes de criar o cartão
             const reader = new FileReader();
-
-            // Quando o leitor terminar de ler o arquivo:
             reader.onloadend = function() {
-                // O resultado (reader.result) é uma string longa (Data URL) da imagem
-                // Chamamos a função que cria o cartão passando essa string
-                criarCartaoPedido(reader.result);
+                criarCartaoDuvida(reader.result);
             }
-
-            // Manda ler o arquivo como uma URL de dados
             reader.readAsDataURL(file);
-
         } else {
-            // Se não tem arquivo, chama a função passando null para a imagem
-            criarCartaoPedido(null);
+            criarCartaoDuvida(null);
         }
     });
 }
 
-
-// Função separada para gerar o HTML do cartão e inserir na página
-function criarCartaoPedido(imagemDataUrl) {
-    // Coleta valores dos textos
-    const categoria = document.getElementById('m_categoria').value;
-    const descricao = document.getElementById('m_descricao').value;
-    const casa = document.getElementById('m_casa').value;
-    const localManutencao = document.getElementById('m_localManutencao').value;
-    const quartoVal = document.getElementById('m_quarto').value;
-    const alaVal = document.getElementById('m_ala').value;
+function criarCartaoDuvida(imagemDataUrl) {
+    const materia = document.getElementById('m_materia').value;
+    const tipo = document.getElementById('m_tipo').value;
+    const assunto = document.getElementById('m_assunto').value;
+    const turma = document.getElementById('m_turma').value;
     
-    let localizacaoTexto = `Casa: ${casa}`;
-    if(quartoVal) localizacaoTexto += ` • Quarto: ${quartoVal}`;
-    if(alaVal) localizacaoTexto += ` • Ala: ${alaVal}`;
+    // MUDANÇA AQUI: Pegando o valor do Nome
+    const nomeAluno = document.getElementById('m_nome_aluno').value;
+    const descricao = document.getElementById('m_descricao').value;
+    
+    // Formatando o texto para mostrar o Nome
+    let infoAluno = `Aluno: ${nomeAluno || 'Anônimo'} • Turma: ${turma || 'N/A'}`;
 
     const dataHoje = new Date().toLocaleDateString('pt-BR');
     const idAleatorio = Math.floor(Math.random() * 10000);
 
-    // --- LÓGICA DA IMAGEM ---
-    // Prepara o HTML da imagem se ela existir, senão fica vazio
     let imagemHtml = '';
     if (imagemDataUrl) {
         imagemHtml = `
             <div class="pedido-imagem-container">
-                <img src="${imagemDataUrl}" alt="Foto do problema" class="pedido-imagem">
+                <img src="${imagemDataUrl}" alt="Foto da dúvida" class="pedido-imagem">
             </div>
         `;
     }
-    // ------------------------
 
-    // Cria HTML do cartão
     const novoCartao = `
         <div class="cartao-pedido">
             <button class="btn-excluir" onclick="removerPedido(this)">X</button>
-
-            <div class="pedido-tag-categoria">${categoria}</div>
-            <p class="pedido-descricao">${descricao}</p>
-
+            <div class="pedido-tag-categoria">${materia}</div>
+            <p class="pedido-descricao"><strong>${assunto}</strong><br>${descricao}</p>
             ${imagemHtml}
             
-            <h4 class="pedido-local-titulo">Localização</h4>
-            <p class="pedido-local-detalhe">${localizacaoTexto}</p>
-
-            <h4 class="pedido-local-titulo">Local da Manutenção</h4>
-            <p class="pedido-local-detalhe">${localManutencao}</p>
+            <h4 class="pedido-local-titulo">Dados do Aluno</h4>
+            <p class="pedido-local-detalhe">${infoAluno}</p>
             
+            <h4 class="pedido-local-titulo">Tipo de Solicitação</h4>
+            <p class="pedido-local-detalhe">${tipo}</p>
             <hr class="pedido-divisor">
-            
             <div class="pedido-rodape">
                 <div class="pedido-status-container">
-                    <span class="pedido-tag-status status-aberto">Aberto</span>
-                    <span class="pedido-data">Criado em: ${dataHoje}</span>
+                    <span class="pedido-tag-status status-aberto">Aguardando Monitor</span>
+                    <span class="pedido-data">Postado em: ${dataHoje}</span>
                 </div>
                 <span class="pedido-id">ID: ${idAleatorio}</span>
             </div>
-
             <hr class="pedido-divisor">
-
             <div class="pedido-comentarios">
-                <p class="comentario-titulo">Comentários do Gestor:</p>
-                <div class="comentario-conteudo">
-                    <p>Aguardando análise.</p>
-                </div>
+                <p class="comentario-titulo">Resposta do Monitor:</p>
+                <div class="comentario-conteudo"><p>Ainda não respondido.</p></div>
             </div>
         </div>
     `;
@@ -201,13 +148,11 @@ function criarCartaoPedido(imagemDataUrl) {
     if (lista) {
         lista.insertAdjacentHTML('afterbegin', novoCartao);
     }
-
-    formMorador.reset(); // Limpa o formulário
+    formMonitoria.reset(); 
 }
 
 function removerPedido(btn) {
-    if (confirm("Tem certeza que deseja excluir este pedido?")) {
-        const card = btn.closest('.cartao-pedido');
-        card.remove();
+    if (confirm("Já resolveu esta dúvida? Deseja excluir?")) {
+        btn.closest('.cartao-pedido').remove();
     }
 }

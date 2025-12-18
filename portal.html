@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Tela de Cadastro" />
+    <meta name="description" content="Portal de Monitoria" />
     <link rel="stylesheet" href="portal.css">
-    <title>Portal do Morador</title>
+    <title>Portal de Monitoria</title>
 </head>
 
 <body>
 
     <header class="header-painel">
         <div class="info-usuario">
-            <span class="greeting">Olá, <strong id="nomeUsuarioDisplay">Morador</strong></span>
+            <span class="greeting">Olá, <strong id="nomeUsuarioDisplay">Aluno</strong></span>
             <span class="separator">|</span>
             <a href="#" onclick="logout()" class="logout-link">Sair</a>
         </div>
@@ -21,101 +21,100 @@
     <section id="sectionMorador" class="section-morador">
         
         <header>
-            <h1 class="cabecalho-section">Portal do Morador</h1>
+            <h1 class="cabecalho-section">Central de Dúvidas</h1>
         </header>
 
         <div class="cartao-morador">
-            <h3>Criar novo pedido</h3>
+            <h3>Nova Dúvida / Pergunta</h3>
 
-            <form id="formMorador" class="formulario-morador" autocomplete="off">
+            <form id="formMonitoria" class="formulario-morador" autocomplete="off">
 
                 <div class="itens-linha">
                     <div class="item-formulario">
-                        <label for="m_casa">Casa (CEU)</label>
-                        <select id="m_casa" name="m_casa" required>
-                            <option value="CEU 4" selected>CEU 4</option>
-                            <option value="CEU 1">CEU 1</option>
-                            <option value="CEU 2">CEU 2</option>
+                        <label for="m_materia">Disciplina / Matéria</label>
+                        <select id="m_materia" name="m_materia" required>
+                            <option value="" disabled selected>Escolha a matéria...</option>
+                            <option value="Cálculo I">Cálculo I</option>
+                            <option value="Física Geral">Física Geral</option>
+                            <option value="Algoritmos">Algoritmos e Programação</option>
+                            <option value="História da Arte">História da Arte</option>
+                            <option value="Estatística">Estatística</option>
                         </select>
                     </div>
 
                     <div class="item-formulario">
-                        <label for="m_localManutencao">Local da Manutenção</label>
-                        <select id="m_localManutencao" name="m_localManutencao" required>
-                            <option value="" disabled selected>Selecione o local...</option>
-                            <option value="Quarto">Quarto</option>
-                            <option value="Banheiro">Banheiro</option>
-                            <option value="Area em comum">Área em comum</option>
-                            <option value="Outros">Outros</option>
+                        <label for="m_tipo">Tipo de Ajuda</label>
+                        <select id="m_tipo" name="m_tipo" required>
+                            <option value="" disabled selected>O que você precisa?</option>
+                            <option value="Dúvida Teórica">Dúvida Teórica</option>
+                            <option value="Exercício de Lista">Exercício de Lista</option>
+                            <option value="Revisão para Prova">Revisão para Prova</option>
+                            <option value="Erro no Código">Erro no Código/Trabalho</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="item-formulario">
-                    <label for="m_categoria">Categoria</label>
-                    <select id="m_categoria" name="m_categoria" required>
-                        <option value="" disabled selected>Selecione a categoria...</option>
-                        <option value="Almoxarifado">Almoxarifado</option>
-                        <option value="Jardinagem">Jardinagem</option>
-                        <option value="Logistica e carregadores">Logística e carregadores</option>
-                        <option value="PROINFRA Manutencao">PROINFRA Manutenção</option>
-                        <option value="Tecnologia e Rede">Tecnologia e Rede</option>
-                        <option value="Zeladoria">Zeladoria</option>
-                        <option value="Outros">Outros</option>
-                    </select>
+                    <label for="m_assunto">Assunto Específico</label>
+                    <input type="text" id="m_assunto" name="m_assunto" placeholder="Ex: Regra da Cadeia, Leis de Newton..." required>
                 </div>
 
                 <div class="itens-linha">
                     <div class="item-formulario">
-                        <label for="m_quarto">Quarto (se aplicável)</label>
-                        <input type="number" id="m_quarto" name="m_quarto" placeholder="ex: 205">
+                        <label for="m_turma">Sua Turma</label>
+                        <input type="text" id="m_turma" name="m_turma" placeholder="ex: Turma A / Noturno">
                     </div>
 
                     <div class="item-formulario">
-                        <label for="m_ala">Ala (se aplicável)</label>
-                        <input type="number" id="m_ala" name="m_ala" placeholder="ex: 2">
+                        <label for="m_nome_aluno">Nome do Aluno</label>
+                        <input type="text" id="m_nome_aluno" name="m_nome_aluno" placeholder="Seu nome completo" required>
                     </div>
                 </div>
 
                 <div class="item-formulario">
-                    <label for="m_descricao" class="form-label">Descrição do Problema</label>
-                    <textarea id="m_descricao" name="m_descricao" rows="3" class="form-textarea" placeholder="Ex: Chuveiro do último box do banheiro não está esquentando." required></textarea>
+                    <label for="m_descricao" class="form-label">Detalhes da Dúvida</label>
+                    <textarea id="m_descricao" name="m_descricao" rows="3" class="form-textarea" placeholder="Descreva sua dúvida ou cole o enunciado da questão aqui..." required></textarea>
                 </div>
 
                 <div class="div-imagem">
-                    <label for="m_imagem">Foto do problema (Opcional)</label>
+                    <label for="m_imagem">Foto do exercício/caderno (Opcional)</label>
                     <input type="file" name="m_imagem" id="m_imagem" class="btn-imagem" accept="image/*">
                 </div>
                 
                 <button type="submit" class="btn btn-enviarPedido" id="m_enviarPedido">
-                    Enviar pedido
+                    Enviar Pergunta
                 </button>
 
             </form>
         </div>
 
         <div class="container-pedidos">
-            <h3 class="cabecalho-meusPedidos">Meus Pedidos</h3>
+            <h3 class="cabecalho-meusPedidos">Minhas Perguntas</h3>
 
             <div class="cartao-pedidos" id="listaPedidos">
+                
                 <div class="cartao-pedido">
                     <button class="btn-excluir" onclick="removerPedido(this)">X</button>
                     
-                    <div class="pedido-tag-categoria">PROINFRA Manutencao</div>
-                    <p class="pedido-descricao">Exemplo: Lâmpada queimada no corredor.</p>
+                    <div class="pedido-tag-categoria">Cálculo I</div>
                     
-                    <h4 class="pedido-local-titulo">Localização</h4>
-                    <p class="pedido-local-detalhe">Casa: CEU 4 • Quarto: 205</p>
+                    <p class="pedido-descricao">
+                        <strong>Derivadas Parciais</strong><br>
+                        Não estou conseguindo aplicar a regra da cadeia no exercício 4 da lista 2.
+                    </p>
+                    
+                    <h4 class="pedido-local-titulo">Dados do Aluno</h4>
+                    <p class="pedido-local-detalhe">Aluno: Gabriel • Turma: A</p>
 
-                    <h4 class="pedido-local-titulo">Local da Manutenção</h4>
-                    <p class="pedido-local-detalhe">Quarto</p>
+                    <h4 class="pedido-local-titulo">Tipo de Solicitação</h4>
+                    <p class="pedido-local-detalhe">Exercício de Lista</p>
                     
                     <hr class="pedido-divisor">
                     
                     <div class="pedido-rodape">
                         <div class="pedido-status-container">
-                            <span class="pedido-tag-status status-aberto">Aberto</span>
-                            <span class="pedido-data">Criado em: 2025-12-17</span>
+                            <span class="pedido-tag-status status-aberto">Aguardando Monitor</span>
+                            <span class="pedido-data">Postado em: 17/12/2025</span>
                         </div>
                         <span class="pedido-id">ID: 001</span>
                     </div>
@@ -123,12 +122,13 @@
                     <hr class="pedido-divisor">
 
                     <div class="pedido-comentarios">
-                        <p class="comentario-titulo">Comentários do Gestor:</p>
+                        <p class="comentario-titulo">Resposta do Monitor:</p>
                         <div class="comentario-conteudo">
-                            <p>Nenhum comentário ainda.</p>
+                            <p>Ainda não respondido.</p>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -136,10 +136,11 @@
 
     <script src="script.js"></script>
     <script>
-        // Ao carregar a página, verifica login e carrega pedidos
         document.addEventListener('DOMContentLoaded', () => {
-            verificarAuth();
-            carregarUsuario();
+            if(typeof verificarAuth === 'function') {
+                verificarAuth();
+                carregarUsuario();
+            }
         });
     </script>
 
