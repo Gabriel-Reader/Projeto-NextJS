@@ -13,18 +13,17 @@ No sistema, alunos podem registrar dúvidas sobre matérias específicas (Cálcu
 
 ## 2. Estratégia de Renderização (Páginas e Justificativas)
 
-Conforme os requisitos do trabalho, foram implementadas duas páginas com estratégias de renderização distintas no Next.js:
+Para atender aos requisitos de performance e demonstrar diferentes estratégias de renderização do Next.js, o projeto foi arquitetado da seguinte forma:
 
 ### Página 1: Login (`/`)
-* **Tipo de Renderização:** **SSG (Static Site Generation)**
+* **Tipo de Renderização:** **SSG (Static Site Generation) + CSR (Client-Side Rendering)**
 * **Justificativa Técnica:**
-  A interface de login é estática e idêntica para qualquer usuário que acessa a aplicação. Não há dados dinâmicos a serem buscados no servidor no momento do carregamento inicial (build time). O uso de SSG garante que o HTML seja pré-gerado, resultando em um *Time to First Byte (TTFB)* extremamente baixo e melhor indexação (SEO), deixando apenas a interatividade do formulário para o cliente.
+  Utilizamos **SSG** para gerar o HTML estático da interface de login durante o *build*, garantindo entrega imediata do conteúdo e máxima performance inicial. O **CSR** atua de forma complementar (*Hydration*) para assumir a interatividade do formulário, validando as credenciais no navegador do usuário sem depender de processamento no servidor para a renderização inicial.
 
-### Página 2: Central de Dúvidas (`/portal`)
-* **Tipo de Renderização:** **CSR (Client-Side Rendering)**
+### Página 2: Portal do Aluno (`/portal`)
+* **Tipo de Renderização:** **ISR (Incremental Static Regeneration)**
 * **Justificativa Técnica:**
-  Esta página depende estritamente do acesso ao `window.localStorage` para verificar a autenticação do usuário e recuperar a lista de dúvidas salvas. Como o `localStorage` não existe no ambiente do servidor (Node.js), a renderização via servidor (SSR) quebraria a aplicação. O uso da diretiva `'use client'` e do hook `useEffect` garante que a manipulação de dados ocorra apenas no navegador do usuário, protegendo a integridade da aplicação.
-
+  A escolha do **ISR** foi estratégica para equilibrar alta performance com facilidade de atualização. Ao pré-renderizar o HTML (similar ao SSG), garantimos um carregamento inicial extremamente rápido. A configuração de revalidação a cada 60 segundos mantém os dados atualizados sem a necessidade de realizar *rebuilds* completos da aplicação, promovendo escalabilidade ao servir páginas em cache enquanto novas versões são regeneradas em *background*.
 ---
 
 ## 3. Análise Comparativa Lighthouse (Antes vs. Depois)
