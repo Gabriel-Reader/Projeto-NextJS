@@ -8,10 +8,10 @@ No sistema, alunos podem registrar dúvidas sobre matérias específicas (Cálcu
 **Integrantes do Grupo:**
 * Gabriel Pinheiro
 * Renan Hurtado
-
+*
 * Links dos deploys realizados:
-* Versão Vanilla JS: https://projeto-next-js-kohl.vercel.app/
-* Versão NextJS: https://projeto-next-js-kappa.vercel.app/
+** Versão Vanilla JS: https://projeto-next-js-kohl.vercel.app/
+** Versão NextJS: https://projeto-next-js-kappa.vercel.app/
 
 ---
 
