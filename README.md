@@ -9,6 +9,10 @@ No sistema, alunos podem registrar dúvidas sobre matérias específicas (Cálcu
 * Gabriel Pinheiro
 * Renan Hurtado
 
+Links dos deploys realizados:
+Versão Vanilla JS: https://projeto-next-js-kohl.vercel.app/
+Versão NextJS: https://projeto-next-js-kappa.vercel.app/
+
 ---
 
 ## 2. Estratégia de Renderização (Páginas e Justificativas)
@@ -64,6 +68,7 @@ Realizamos auditorias de performance utilizando o Google Lighthouse (modo Deskto
 
 **Conclusão da Análise:**
 A migração elevou a nota de Performance para o patamar de **98/100** em ambas as páginas. Isso demonstra que o uso de pré-renderização (SSG/ISR) supera a abordagem tradicional de carregar todo o site via requisição simples, oferecendo uma experiência percebida muito mais rápida para o usuário final.
+
 ---
 
 ## 4. Reflexão: Frontend Desacoplado
