@@ -9,9 +9,9 @@ No sistema, alunos podem registrar dúvidas sobre matérias específicas (Cálcu
 * Gabriel Pinheiro
 * Renan Hurtado
 
-Links dos deploys realizados:
-Versão Vanilla JS: https://projeto-next-js-kohl.vercel.app/
-Versão NextJS: https://projeto-next-js-kappa.vercel.app/
+* Links dos deploys realizados:
+* Versão Vanilla JS: https://projeto-next-js-kohl.vercel.app/
+* Versão NextJS: https://projeto-next-js-kappa.vercel.app/
 
 ---
 
